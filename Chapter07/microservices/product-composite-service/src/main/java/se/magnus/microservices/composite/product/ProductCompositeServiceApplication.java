@@ -1,5 +1,7 @@
 package se.magnus.microservices.composite.product;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -71,6 +73,12 @@ public class ProductCompositeServiceApplication {
 			"recommendation", () -> integration.getRecommendationHealth(),
 			"review", () -> integration.getReviewHealth()
 		));
+	}
+
+	@Bean
+	public ObjectMapper objectMapper() {
+		return new ObjectMapper()
+			.registerModule(new JavaTimeModule());
 	}
 
 	public static void main(String[] args) {

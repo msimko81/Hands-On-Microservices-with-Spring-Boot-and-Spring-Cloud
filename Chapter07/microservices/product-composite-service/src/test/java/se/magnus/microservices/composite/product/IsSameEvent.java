@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
@@ -19,7 +20,8 @@ public class IsSameEvent extends TypeSafeMatcher<String> {
 
     private static final Logger LOG = LoggerFactory.getLogger(IsSameEvent.class);
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper = new ObjectMapper()
+        .registerModule(new JavaTimeModule());
 
     private Event expectedEvent;
 
