@@ -90,7 +90,7 @@ public class ProductCompositeIntegration implements ProductService, Recommendati
 
     @Override
     public Product createProduct(Product body) {
-        messageSources.outputProducts().send(MessageBuilder.withPayload(new Event(CREATE, body.getProductId(), body)).build());
+        messageSources.outputProducts().send(MessageBuilder.withPayload(new Event<>(CREATE, body.getProductId(), body)).build());
         return body;
     }
 
@@ -104,12 +104,12 @@ public class ProductCompositeIntegration implements ProductService, Recommendati
 
     @Override
     public void deleteProduct(int productId) {
-        messageSources.outputProducts().send(MessageBuilder.withPayload(new Event(DELETE, productId, null)).build());
+        messageSources.outputProducts().send(MessageBuilder.withPayload(new Event<>(DELETE, productId, null)).build());
     }
 
     @Override
     public Recommendation createRecommendation(Recommendation body) {
-        messageSources.outputRecommendations().send(MessageBuilder.withPayload(new Event(CREATE, body.getProductId(), body)).build());
+        messageSources.outputRecommendations().send(MessageBuilder.withPayload(new Event<>(CREATE, body.getProductId(), body)).build());
         return body;
     }
 
@@ -126,12 +126,12 @@ public class ProductCompositeIntegration implements ProductService, Recommendati
 
     @Override
     public void deleteRecommendations(int productId) {
-        messageSources.outputRecommendations().send(MessageBuilder.withPayload(new Event(DELETE, productId, null)).build());
+        messageSources.outputRecommendations().send(MessageBuilder.withPayload(new Event<>(DELETE, productId, null)).build());
     }
 
     @Override
     public Review createReview(Review body) {
-        messageSources.outputReviews().send(MessageBuilder.withPayload(new Event(CREATE, body.getProductId(), body)).build());
+        messageSources.outputReviews().send(MessageBuilder.withPayload(new Event<>(CREATE, body.getProductId(), body)).build());
         return body;
     }
 
@@ -149,7 +149,7 @@ public class ProductCompositeIntegration implements ProductService, Recommendati
 
     @Override
     public void deleteReviews(int productId) {
-        messageSources.outputReviews().send(MessageBuilder.withPayload(new Event(DELETE, productId, null)).build());
+        messageSources.outputReviews().send(MessageBuilder.withPayload(new Event<>(DELETE, productId, null)).build());
     }
 
     public Mono<Health> getProductHealth() {
