@@ -37,8 +37,6 @@ public class ProductCompositeServiceApplication {
 
 	/**
 	 * Will exposed on $HOST:$PORT/swagger-ui.html
-	 *
-	 * @return
 	 */
 	@Bean
 	public Docket apiDocumentation() {

@@ -51,12 +51,12 @@ public class ProductServiceApplicationTests {
 		int productId = 1;
 
 		assertNull(repository.findByProductId(productId).block());
-		assertEquals(0, (long)repository.count().block());
+		assertEquals(0, repository.count().block());
 
 		sendCreateProductEvent(productId);
 
 		assertNotNull(repository.findByProductId(productId).block());
-		assertEquals(1, (long)repository.count().block());
+		assertEquals(1, repository.count().block());
 
 		getAndVerifyProduct(productId, OK)
             .jsonPath("$.productId").isEqualTo(productId);
@@ -143,12 +143,12 @@ public class ProductServiceApplicationTests {
 
 	private void sendCreateProductEvent(int productId) {
 		Product product = new Product(productId, "Name " + productId, productId, "SA");
-		Event<Integer, Product> event = new Event(CREATE, productId, product);
+		Event<Integer, Product> event = new Event<>(CREATE, productId, product);
 		input.send(new GenericMessage<>(event));
 	}
 
 	private void sendDeleteProductEvent(int productId) {
-		Event<Integer, Product> event = new Event(DELETE, productId, null);
+		Event<Integer, Product> event = new Event<>(DELETE, productId, null);
 		input.send(new GenericMessage<>(event));
 	}
 }

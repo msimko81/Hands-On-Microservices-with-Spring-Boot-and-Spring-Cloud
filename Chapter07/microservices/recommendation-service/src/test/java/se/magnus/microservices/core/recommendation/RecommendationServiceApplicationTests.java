@@ -150,12 +150,12 @@ public class RecommendationServiceApplicationTests {
 
 	private void sendCreateRecommendationEvent(int productId, int recommendationId) {
 		Recommendation recommendation = new Recommendation(productId, recommendationId, "Author " + recommendationId, recommendationId, "Content " + recommendationId, "SA");
-		Event<Integer, Product> event = new Event(CREATE, productId, recommendation);
+		Event<Integer, Recommendation> event = new Event<>(CREATE, productId, recommendation);
 		input.send(new GenericMessage<>(event));
 	}
 
 	private void sendDeleteRecommendationEvent(int productId) {
-		Event<Integer, Product> event = new Event(DELETE, productId, null);
+		Event<Integer, Recommendation> event = new Event<>(DELETE, productId, null);
 		input.send(new GenericMessage<>(event));
 	}
 }

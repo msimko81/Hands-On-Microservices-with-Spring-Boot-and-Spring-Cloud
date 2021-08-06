@@ -154,12 +154,12 @@ public class ReviewServiceApplicationTests {
 
 	private void sendCreateReviewEvent(int productId, int reviewId) {
 		Review review = new Review(productId, reviewId, "Author " + reviewId, "Subject " + reviewId, "Content " + reviewId, "SA");
-		Event<Integer, Product> event = new Event(CREATE, productId, review);
+		Event<Integer, Review> event = new Event<>(CREATE, productId, review);
 		input.send(new GenericMessage<>(event));
 	}
 
 	private void sendDeleteReviewEvent(int productId) {
-		Event<Integer, Product> event = new Event(DELETE, productId, null);
+		Event<Integer, Review> event = new Event<>(DELETE, productId, null);
 		input.send(new GenericMessage<>(event));
 	}
 }
