@@ -1,4 +1,4 @@
-FROM openjdk:12.0.2
+FROM openjdk:16.0.2-slim
 
 EXPOSE 8080
 
