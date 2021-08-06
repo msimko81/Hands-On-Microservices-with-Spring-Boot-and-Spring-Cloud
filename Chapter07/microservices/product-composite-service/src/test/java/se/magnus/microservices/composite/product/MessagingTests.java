@@ -1,15 +1,13 @@
 package se.magnus.microservices.composite.product;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.stream.test.binder.MessageCollector;
 import org.springframework.http.HttpStatus;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageChannel;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import se.magnus.api.composite.product.ProductAggregate;
 import se.magnus.api.composite.product.RecommendationSummary;
@@ -23,9 +21,9 @@ import se.magnus.microservices.composite.product.services.ProductCompositeIntegr
 import java.util.concurrent.BlockingQueue;
 
 import static java.util.Collections.singletonList;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.cloud.stream.test.matcher.MessageQueueMatcher.receivesPayloadThat;
 import static org.springframework.http.HttpStatus.OK;
@@ -34,7 +32,6 @@ import static se.magnus.api.event.Event.Type.CREATE;
 import static se.magnus.api.event.Event.Type.DELETE;
 import static se.magnus.microservices.composite.product.IsSameEvent.sameEventExceptCreatedAt;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=RANDOM_PORT)
 
 public class MessagingTests {
@@ -56,7 +53,7 @@ public class MessagingTests {
 	BlockingQueue<Message<?>> queueRecommendations = null;
 	BlockingQueue<Message<?>> queueReviews = null;
 
-	@Before
+	@BeforeEach
 	public void setUp() {
 		queueProducts = getQueue(channels.outputProducts());
 		queueRecommendations = getQueue(channels.outputRecommendations());
