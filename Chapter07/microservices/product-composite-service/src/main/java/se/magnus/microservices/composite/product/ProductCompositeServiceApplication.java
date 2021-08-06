@@ -1,5 +1,6 @@
 package se.magnus.microservices.composite.product;
 
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -12,8 +13,6 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spring.web.plugins.Docket;
-
-import java.util.LinkedHashMap;
 
 import static java.util.Collections.emptyList;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -63,21 +62,15 @@ public class ProductCompositeServiceApplication {
     }
 
 	@Autowired
-	HealthAggregator healthAggregator;
-
-	@Autowired
 	ProductCompositeIntegration integration;
 
 	@Bean
-	ReactiveHealthIndicator coreServices() {
-
-		ReactiveHealthIndicatorRegistry registry = new DefaultReactiveHealthIndicatorRegistry(new LinkedHashMap<>());
-
-		registry.register("product", () -> integration.getProductHealth());
-		registry.register("recommendation", () -> integration.getRecommendationHealth());
-		registry.register("review", () -> integration.getReviewHealth());
-
-		return new CompositeReactiveHealthIndicator(healthAggregator, registry);
+	ReactiveHealthContributor coreServices() {
+		return CompositeReactiveHealthContributor.fromMap(Map.<String, ReactiveHealthIndicator>of(
+			"product", () -> integration.getProductHealth(),
+			"recommendation", () -> integration.getRecommendationHealth(),
+			"review", () -> integration.getReviewHealth()
+		));
 	}
 
 	public static void main(String[] args) {
