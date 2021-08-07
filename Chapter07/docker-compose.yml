@@ -52,7 +52,7 @@ services:
     mem_limit: 350m
     ports:
       - "27017:27017"
-    command: mongod --smallfiles
+    command: mongod
     healthcheck:
       test: "mongo --eval 'db.stats().ok'"
       interval: 10s
