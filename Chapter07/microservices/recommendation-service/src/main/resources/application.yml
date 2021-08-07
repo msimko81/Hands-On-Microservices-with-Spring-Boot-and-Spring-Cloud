@@ -45,7 +45,7 @@ logging:
 management.endpoint.health.show-details: "ALWAYS"
 management.endpoints.web.exposure.include: "*"
 ---
-spring.profilesspring.config.activate.on-profile: docker
+spring.profiles: docker
 
 server.port: 8080
 
