@@ -1,5 +1,6 @@
 package se.magnus.microservices.composite.product;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.util.Map;
@@ -76,7 +77,8 @@ public class ProductCompositeServiceApplication {
 	@Bean
 	public ObjectMapper objectMapper() {
 		return new ObjectMapper()
-			.registerModule(new JavaTimeModule());
+			.registerModule(new JavaTimeModule())
+			.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 	}
 
 	public static void main(String[] args) {
